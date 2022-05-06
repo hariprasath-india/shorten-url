@@ -1,11 +1,19 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
-app.use((req, res) => {
-    console.log(req.headers);
-    res.setHeader('Content-Type', 'text/html');
-    res.end('<html><body><h1>Hey there, Welcome to Server side!! </h1></body></html>');
-});
+const cors = require("cors");
 
-app.listen(3000, function(){
-    console.log("Server is running at port 3000");
-});
+const initializeApp = async () =>{
+    require("./database");
+    const port = process.env.PORT || 5000;
+    // Middleware
+    app.use(cors());
+    app.use(express.json()); 
+
+    require("./routes")(app);
+    app.listen(port, () => {
+        console.log("server has started on port",port);
+    });
+}
+
+initializeApp()
