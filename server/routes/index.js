@@ -1,10 +1,19 @@
 
+const shorturlRoutes = require('./shorturl/routes');
+const redirectUrl = require('./redirect');
+const shorturlController = require('./shorturl/shorturl.controller');
 
 module.exports = (app) => {
-    app.get("/", (req, res, next) => {
-        res.json({
-          code: 200,
-          title: "Everything looks fine.",
-        });
+    app.get("/",shorturlController.fetchAllLinks);
+    app.get("/:code",redirectUrl.redirectUrl);
+    app.use("/api/v1/shorturl",shorturlRoutes);
+
+    app.use((req, res, next) => {
+      res.status(404).json({
+        statusCode:404,
+        data: null,
+        error: "Api call not found",
+        message: "This feature is currently unavailable.",
+      })
     });
 }

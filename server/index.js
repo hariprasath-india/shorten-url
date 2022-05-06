@@ -1,19 +1,38 @@
 require('dotenv').config();
+const bodyParser = require('body-parser')
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const logger = require('./config/logger');
+const httpLogger = require('./config/httpLogger');
 
-const initializeApp = async () =>{
-    require("./database");
-    const port = process.env.PORT || 5000;
-    // Middleware
-    app.use(cors());
-    app.use(express.json()); 
+const port = process.env.PORT || 5000
+require("./config/database");
 
-    require("./routes")(app);
-    app.listen(port, () => {
-        console.log("server has started on port",port);
-    });
+//config expressJS
+app.use(cors());
+app.use(express.json()); 
+app.use(express.urlencoded({extended: true}));
+app.use(logErrors);
+app.use(errorHandler);
+app.use(httpLogger);
+
+function logErrors (err, req, res, next) {
+    logger.error(err.stack)
+  next(err)
+}
+function errorHandler (err, req, res, next) {
+    logger.error(err)
+    res.status(500).json({
+        statusCode: 500,
+        error: err,
+        message: "Error Occured"
+    })
 }
 
-initializeApp()
+require("./routes")(app);
+
+app.listen(port, () => {
+    console.log("server has started on port",port);
+    logger.info(`server has started on port ${port}`)
+});
