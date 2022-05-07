@@ -29,14 +29,14 @@ module.exports = {
                     message: "Please enter url"
                 })
             }
+            url = shortUrlHelper.checkPrefix(url);
             if (!shortUrlHelper.checkValidUrl(url)) {
                 return res.status(401).json({
                     statusCode: 400,
                     error: "Invalid URL given",
                     message: "Please enter proper URL"
                 })
-            }
-            url = shortUrlHelper.checkPrefix(url);
+            }     
 
             const findUrl = await shortUrlHelper.checkUrlAlreadyExists(url);
             if (findUrl.rows[0]){

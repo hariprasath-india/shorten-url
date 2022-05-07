@@ -4,7 +4,7 @@ const redirectUrl = require('./shorturl/redirect');
 const shorturlController = require('./shorturl/shorturl.controller');
 
 module.exports = (app) => {
-    app.get("/",shorturlController.fetchAllLinks);
+    // app.get("/",shorturlController.fetchAllLinks);
     app.get("/:code",redirectUrl.redirectUrl);
     app.use("/api/v1/shorturl",shorturlRoutes);
 
