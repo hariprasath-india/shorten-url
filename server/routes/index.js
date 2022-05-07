@@ -1,6 +1,6 @@
 
 const shorturlRoutes = require('./shorturl/routes');
-const redirectUrl = require('./redirect');
+const redirectUrl = require('./shorturl/redirect');
 const shorturlController = require('./shorturl/shorturl.controller');
 
 module.exports = (app) => {
