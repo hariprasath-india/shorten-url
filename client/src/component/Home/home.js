@@ -8,6 +8,9 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Cards from '../Cards/cards';
 import { createLink } from '../../config/api-calls';
+import Search from '../Search/search';
+
+import LinkPreview from 'react-native-link-preview';
 
 const siteUrl = process.env.REACT_APP_SITE_URL
 axios.defaults.baseURL = 'http://localhost:3000';
@@ -37,22 +40,24 @@ const Home = () => {
           <Form onSubmit={submitHandler}>
 
             <Form.Control
-                className='mt-3 text-center'
+                className='mt-3 text-center input-style'
                 value={url}
                 onChange={e => setUrl(e.target.value)}
                 type='text'
                 placeholder='your url with http(s)://'
                 required
-            />
-
-            <div className='d-flex justify-content-center'>
-                <Button className='mt-3' variant='primary' type='submit'>
+            />  
+            <span className='d-flex justify-content-center'>
+                <Button className='mt-3 button-style' variant='primary' type='submit'>
                     Nano It
                 </Button>
-            </div>
+            </span>
+
           </Form>
           {shortUrl && <Cards shrinkedUrl={shortUrl} />}
+          <Search/>
         </div>
+        
         <ParticlesBackground/>
       </div>
     )

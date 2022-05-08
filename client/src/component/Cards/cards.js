@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
+import './cards.css'
 
 function Cards({ shrinkedUrl }) {
 
@@ -16,15 +17,15 @@ function Cards({ shrinkedUrl }) {
     }
 
     return (
-        <InputGroup className='mt-4 d-flex justify-content-center'>
+        <InputGroup className='mt-4 d-flex justify-content-center new-link-box' >
 
-            <InputGroup.Text>Shortened Url </InputGroup.Text>
-            <InputGroup.Text>{shrinkedUrl}</InputGroup.Text>
-            <Button onClick={clickHandler}>copy</Button>
-            <Button onClick={() => window.open(`${shrinkedUrl}`, '_blank')}
-                variant='info'>
+            <InputGroup.Text className='nano-url-text-input-text'>Nano Url </InputGroup.Text>
+            <InputGroup.Text className='nano-url-link-input-text'>{shrinkedUrl}</InputGroup.Text>
+            <Button className='nano-url-copy-bt-input-text' onClick={clickHandler} >copy</Button>
+            <a href= {shrinkedUrl} target='_blank'>
                 <img src='https://img.icons8.com/fluency-systems-regular/50/000000/external-link.png' style={style} alt='icon-r' />
-            </Button>
+            </a>
+            
 
         </InputGroup>
     )
