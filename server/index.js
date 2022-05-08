@@ -30,10 +30,16 @@ function errorHandler (err, req, res, next) {
         message: "Error Occured"
     })
 }
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+     next();
+});
+
 app.get('/', (req, res) => {
     
     res.sendFile(path.resolve('../', 'client', 'build', 'index.html'))
-  })
+})
+
 require("./routes")(app);
 
 app.listen(port, () => {

@@ -9,7 +9,8 @@ import Button from 'react-bootstrap/Button'
 import Cards from '../Cards/cards';
 import { createLink } from '../../config/api-calls';
 
-const siteUrl = process.env.SITE_URL
+const siteUrl = process.env.REACT_APP_SITE_URL
+axios.defaults.baseURL = 'http://localhost:3000';
 
 const Home = () => {
   const [url, setUrl] = useState('')
@@ -22,8 +23,9 @@ const Home = () => {
           url: url
       })
           .then((response) => {
+            console.log(response)
               setUrl('')
-              setShortUrl(siteUrl+'/'+response.data.short_url_code)
+              setShortUrl(siteUrl+'/'+response.data.data.short_url_code)
           })
           .catch((error) => {
               console.log(error)
@@ -45,7 +47,7 @@ const Home = () => {
 
             <div className='d-flex justify-content-center'>
                 <Button className='mt-3' variant='primary' type='submit'>
-                    Shrink
+                    Nano It
                 </Button>
             </div>
           </Form>
