@@ -29,17 +29,22 @@ module.exports = {
                     message: "Please enter url"
                 })
             }
+            url = shortUrlHelper.checkPrefix(url);
             if (!shortUrlHelper.checkValidUrl(url)) {
                 return res.status(401).json({
                     statusCode: 400,
                     error: "Invalid URL given",
                     message: "Please enter proper URL"
                 })
-            }
-            url = shortUrlHelper.checkPrefix(url);
-
+            }     
+            
             const findUrl = await shortUrlHelper.checkUrlAlreadyExists(url);
             if (findUrl.rows[0]){
+                logger.info({
+                    statusCode: 200,
+                    message: "success",
+                    data: findUrl.rows[0]
+                })
                 return res.status(200).json({
                     statusCode: 200,
                     message: "success",
@@ -50,14 +55,18 @@ module.exports = {
             while (await shortUrlHelper.checkUrlCodeExists(urlCode)){
                 urlCode = shrinkUrl();
             }
+            let urlTitle =await shortUrlHelper.getUrlTitle(url);
             
-            const urlTitle = await shortUrlHelper.getUrlTitle(url);
-
             const nanoUrls = await pool.query(
                 "INSERT INTO links (original_url, url_title, short_url_code) VALUES($1, $2, $3) RETURNING *",
                 [url, urlTitle, urlCode]
             );
             if (nanoUrls.rows[0]){
+                logger.info({
+                    statusCode: 200,
+                    message: "success",
+                    data: nanoUrls.rows[0]
+                })
                 return res.status(200).json({
                     statusCode: 200,
                     message: "success",

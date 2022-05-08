@@ -1,8 +1,8 @@
 const validUrl = require('valid-url');
 const getUrlTitle = require("get-url-title");
 const pool = require('../../config/database');
-const { off } = require('../../config/logger');
 const baseUrl = process.env.BASE_URL
+var getTitleAtUrl = require('get-title-at-url');
 
 module.exports = {
     checkValidUrl: (url) => {
@@ -10,7 +10,7 @@ module.exports = {
     },
     checkUrlAlreadyExists: async (url) => {
 
-        return  await pool.query(
+        return await pool.query(
             "select * from links where original_url = $1 ",
             [url]
         );
@@ -21,7 +21,7 @@ module.exports = {
             "select id from links where short_url_code = $1 ",
             [urlCode]
         );
-        return result.rows.length != 0 ? true : false;
+        return result.rows && result.rows.length != 0 ? true : false;
     },
     fetchOrginalUrl: async (urlCode) => {
 
@@ -31,7 +31,7 @@ module.exports = {
         );
         return result.rows[0] ? result.rows[0] : null;
     },
-    getUrlTitle: async(url) => {
+    getUrlTitle: async (url) => {
         return await getUrlTitle(url);
     },
     fetchAllLinks: async(url,skip,limit,sortBy) => {

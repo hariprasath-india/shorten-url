@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 const logger = require('./config/logger');
 const httpLogger = require('./config/httpLogger');
+const path = require('path');
 
 const port = process.env.PORT || 5000
 require("./config/database");
@@ -29,6 +30,15 @@ function errorHandler (err, req, res, next) {
         message: "Error Occured"
     })
 }
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+     next();
+});
+
+app.get('/', (req, res) => {
+    
+    res.sendFile(path.resolve('../', 'client', 'build', 'index.html'))
+})
 
 require("./routes")(app);
 
