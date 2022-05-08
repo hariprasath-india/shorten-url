@@ -4,6 +4,8 @@ const pool = require('../../config/database');
 const baseUrl = process.env.BASE_URL
 var getTitleAtUrl = require('get-title-at-url');
 
+
+
 module.exports = {
     checkValidUrl: (url) => {
         return validUrl.isUri(url)
@@ -31,8 +33,8 @@ module.exports = {
         );
         return result.rows[0] ? result.rows[0] : null;
     },
-    getUrlTitle: async (url) => {
-        return await getUrlTitle(url);
+    getUrlTitle: async (url, callback) => {
+        getTitleAtUrl(url, function(title){ callback(title); });
     },
     fetchAllLinks: async(url,skip,limit,sortBy) => {
         const offset =  (skip || 0 )* (limit || 10)
