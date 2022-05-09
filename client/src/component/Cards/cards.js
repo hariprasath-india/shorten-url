@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import './cards.css'
 
 function Cards({ shrinkedUrl }) {
-
+    const site_url = process.env.REACT_APP_SITE_URL
     const style = {
         paddingLeft: 2,
         paddingBottom: 2,
@@ -13,16 +13,16 @@ function Cards({ shrinkedUrl }) {
     }
 
     const clickHandler = () => {
-        navigator.clipboard.writeText(shrinkedUrl)
+        navigator.clipboard.writeText(site_url+"/"+shrinkedUrl)
     }
 
     return (
         <InputGroup className='mt-4 d-flex justify-content-center new-link-box' >
 
             <InputGroup.Text className='nano-url-text-input-text'>Nano Url </InputGroup.Text>
-            <InputGroup.Text className='nano-url-link-input-text'>{shrinkedUrl}</InputGroup.Text>
+            <InputGroup.Text className='nano-url-link-input-text'>{site_url+"/"+shrinkedUrl}</InputGroup.Text>
             <Button className='nano-url-copy-bt-input-text' onClick={clickHandler} >copy</Button>
-            <a href= {shrinkedUrl} target='_blank'>
+            <a href= {site_url+"/"+shrinkedUrl} target='_blank' rel="noreferrer">
                 <img src='https://img.icons8.com/fluency-systems-regular/50/000000/external-link.png' style={style} alt='icon-r' />
             </a>
             

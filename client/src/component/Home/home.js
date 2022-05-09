@@ -10,10 +10,7 @@ import Cards from '../Cards/cards';
 import { createLink } from '../../config/api-calls';
 import Search from '../Search/search';
 
-import LinkPreview from 'react-native-link-preview';
-
-const siteUrl = process.env.REACT_APP_SITE_URL
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = process.env.REACT_APP_SITE_URL;
 
 const Home = () => {
   const [url, setUrl] = useState('')
@@ -21,14 +18,13 @@ const Home = () => {
   
   const submitHandler = (e) => {
       e.preventDefault()
-      console.log("createLink:",createLink)
       axios.post(createLink, {
           url: url
       })
           .then((response) => {
             console.log(response)
               setUrl('')
-              setShortUrl(siteUrl+'/'+response.data.data.short_url_code)
+              setShortUrl(response.data.data.short_url_code)
           })
           .catch((error) => {
               console.log(error)
