@@ -1,5 +1,4 @@
 require('dotenv').config();
-const bodyParser = require('body-parser')
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -36,7 +35,6 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    
     res.sendFile(path.resolve('../', 'client', 'build', 'index.html'))
 })
 

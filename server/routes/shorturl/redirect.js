@@ -3,18 +3,23 @@ const shorturlHelper = require('./shorturl.helper');
 
 module.exports = {
     redirectUrl: async (req, res, next) => {
-        try {
+        try {      
             if (req.params.code) {
                 const code = req.params.code;
                 const url = await shorturlHelper.fetchOrginalUrl(code);
                 if (url){
                     await addClickCount(url.id);
-                    return res.redirect(url.original_url);
+                    // return res.redirect(url.original_url)
+                    console.log(url.original_url)
+                    return res.status(200).json({
+                        statusCode: 200,
+                        url: url.original_url
+                    });
                 }
                 
-                return res.status(200).json({
-                    statusCode: 200,
-                    message: "Redirect API call"
+                return res.status(400).json({
+                    statusCode: 400,
+                    message: "invalid url"
                 })
                 // if (url) {
                 //     // when valid we perform a redirect
