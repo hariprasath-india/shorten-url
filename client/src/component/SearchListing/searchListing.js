@@ -2,7 +2,6 @@ import React from 'react'
 import './searchListing.css'
 
 function UrlListings({ResponseData}) {
-
     const result = (ResponseData) =>{
         console.log("ResponseData.data ",ResponseData.data)
         if (ResponseData.data){
