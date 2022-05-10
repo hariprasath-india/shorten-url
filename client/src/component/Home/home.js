@@ -10,7 +10,7 @@ import Cards from '../Cards/cards';
 import { createLink } from '../../config/api-calls';
 import Search from '../Search/search';
 
-axios.defaults.baseURL = process.env.REACT_APP_SITE_URL;
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const Home = () => {
   const [url, setUrl] = useState('')

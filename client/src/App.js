@@ -4,7 +4,8 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import Redirect from "./component/redirect";
+// import Redirect from "./component/redirect";
+import Redirect from "./component/redirectTests";
 
 function App() {
   return ( 

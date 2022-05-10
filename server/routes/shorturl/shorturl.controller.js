@@ -7,15 +7,22 @@ const shrinkUrl =  require('../../config/shrinkUrl');
 module.exports = {
     fetchAllLinks: async (req, res, next) => {
         try {
-            let {url, skip, limit, sortBy} = await shortUrlValidator.fetch_all_links().validateAsync(req.body);
-            const result = await shortUrlHelper.fetchAllLinks(url, skip, limit, sortBy);
+            let {type, query, skip, limit, sortBy} = await shortUrlValidator.fetch_all_links().validateAsync(req.query);
+            const result = await shortUrlHelper.fetchAllLinks(type, query, skip, limit, sortBy);
             return res.json({
                 statusCode: 200,
                 message: "success",
-                data: result
+                data: result.rows,
+                next_page: result.next_page,
+                is_next_page_available: result.is_next_page
             })
         } catch (error) {
-            logger.error(error);
+            logger.error(error.message);
+            return res.json({
+                statusCode: 400,
+                error: error.message,
+                message: "Problem in Fetching Data"
+            })
             next(error);
         }
     },
@@ -31,7 +38,7 @@ module.exports = {
             }
             url = shortUrlHelper.checkPrefix(url);
             if (!shortUrlHelper.checkValidUrl(url)) {
-                return res.status(401).json({
+                return res.status(400).json({
                     statusCode: 400,
                     error: "Invalid URL given",
                     message: "Please enter proper URL"

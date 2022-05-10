@@ -1,3 +1,7 @@
 .container {
     margin-top: 40px;
 }
+
+#filter select, #filter input, #filter button {
+    padding: 6px;
+}
