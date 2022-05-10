@@ -35,7 +35,8 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('../', 'client', 'build', 'index.html'))
+    // res.sendFile(path.resolve('../', 'client', 'build', 'index.html'))
+    res.redirect(process.env.BASE_URL)
 })
 
 require("./routes")(app);
