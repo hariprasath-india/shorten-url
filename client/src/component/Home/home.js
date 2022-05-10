@@ -33,6 +33,7 @@ const Home = () => {
     return (
       <div className="home-wrapper">
         <div className="home">
+        <img className="home-image" src={process.env.REACT_APP_SITE_URL + '/assets/Nano.svg'} />
           <Form onSubmit={submitHandler}>
 
             <Form.Control

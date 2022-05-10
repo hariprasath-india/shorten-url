@@ -47,3 +47,9 @@
     transform-origin: 70% 70%;
     animation-fill-mode: forwards;
   }
+
+.home-image {
+  height: 138px;
+  width: fit-content;
+  margin-bottom: 42px;
+}

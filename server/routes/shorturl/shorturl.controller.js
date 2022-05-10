@@ -18,7 +18,7 @@ module.exports = {
             })
         } catch (error) {
             logger.error(error.message);
-            return res.json({
+            return res.status(400).json({
                 statusCode: 400,
                 error: error.message,
                 message: "Problem in Fetching Data"
