@@ -14,21 +14,21 @@ const RedirectUrl = async () => {
     console.log(redirect_url)
     const result =  async(redirect_url) => {
 
-    return await axios.get(redirect_url)
-        .then((response) => {
-          console.log(response)
+      return await axios.get(redirect_url)
+          .then((response) => {
+            console.log(response)
 
-          if (response.data.url){
-            //  window.location.href = response.data.url;
-             return response.data.url;
-          }
-          // window.location.href = site_url;
-          return site_url;
+            if (response.data.url){
+              //  window.location.href = response.data.url;
+              return response.data.url;
+            }
+            // window.location.href = site_url;
+            return site_url;
 
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+          })
+          .catch((error) => {
+              console.log(error)
+          });
     
     }
     

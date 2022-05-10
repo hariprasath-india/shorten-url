@@ -9,6 +9,7 @@ module.exports = {
                 const url = await shorturlHelper.fetchOrginalUrl(code);
                 if (url){
                     await addClickCount(url.id);
+                    // console.log("url.original_url",url.original_url)
                     // return res.redirect(url.original_url)
                     console.log(url.original_url)
                     return res.status(200).json({

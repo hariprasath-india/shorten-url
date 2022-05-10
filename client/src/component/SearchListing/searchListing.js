@@ -4,15 +4,14 @@ import './searchListing.css'
 function UrlListings({ResponseData}) {
 
     const result = (ResponseData) =>{
-        console.log(ResponseData.data)
-        if (ResponseData & ResponseData.data){
-            ResponseData.data.map(data => (
-                
+        console.log("ResponseData.data ",ResponseData.data)
+        if (ResponseData.data){
+            return ResponseData.data.map(data => 
                 <div className="url-list">
                     <div className="month">May</div>
                     <div className="url-content">
                         <div className="url-name">
-                            {data.url_title},{console.log("Data",data)}
+                            {data.url_title}
                         </div>
                         <div className="url-clicks">
                             <div className="num-clicks">{data.total_clicks}</div>
@@ -21,12 +20,13 @@ function UrlListings({ResponseData}) {
                     </div>
                     <div className="url-copy">Copy</div>
                 </div>
-            ))
-
-            
+            )
+        } else {
+            console.log(ResponseData.error)
+            alert(`Error in Input Value. \nPlease Check This Error: ${ResponseData.error}`)
         }
     }
-
+    
  return (result(ResponseData))
 }
 
