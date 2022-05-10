@@ -1,0 +1,29 @@
+.url-list {
+    background: #fff;
+    padding: 6px 12px;
+ }
+ 
+ .month {
+  text-align: left;
+ }
+ 
+ .url-content {
+    width: 100%;
+    display: flex;
+ }
+ 
+ .url-name {
+   text-align: left;
+   width: 90%;
+   align-self: center;
+ }
+ 
+ .url-clicks {
+  width: 10%;
+  text-align: center;
+  border: 1px solid #ddd;
+ }
+ 
+ .url-copy {
+  text-align: left;
+ }

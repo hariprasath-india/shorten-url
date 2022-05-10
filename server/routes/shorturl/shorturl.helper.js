@@ -4,6 +4,19 @@ const pool = require('../../config/database');
 const baseUrl = process.env.BASE_URL
 var getTitleAtUrl = require('get-title-at-url');
 
+const sortByQueryText = (sortBy) => {
+    switch (sortBy){
+        case "created_at_desc":
+             return "created_at desc"
+        case "total_clicks_asc":
+            return "total_clicks"
+        case "total_clicks_desc":
+            return  "total_clicks desc"
+        default:
+            return  "created_at"
+    }
+    
+}
 
 
 module.exports = {
@@ -36,15 +49,36 @@ module.exports = {
     getUrlTitle: async (url, callback) => {
         getTitleAtUrl(url, function(title){ callback(title); });
     },
-    fetchAllLinks: async(url,skip,limit,sortBy) => {
+    fetchAllLinks: async(type, input_text, skip, limit, sortBy) => {
         const offset =  (skip || 0 )* (limit || 10)
         let result;
-        if (url){
-            result = await pool.query("select * from links where original_url like '%$1%' limit $2 offset $3", [url, limit, offset])
+        let query; 
+        const sortByQuery = sortByQueryText(sortBy)
+        console.log("Sort",sortByQueryText(sortBy))
+        if (type == 'url'){
+            if (sortBy == 'total_clicks') {
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`;
+                
+            }else{
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+            }
+            
         }else {
-            result = await pool.query("select * from links order by updated_at desc limit $1 offset $2", [limit, offset])
+            if (sortBy == 'total_clicks'){
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+            }else{
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+            }
         }
-        return result.rows
+        console.log(query)
+        result = await pool.query(query);
+        
+        return {
+            rows: result.rows,
+            next_page: result.rows.length == 0 ? null : `/api/v1/shorturl/fetch-all-links?query=${input_text}&skip=${skip+1}&limit=${limit}&type=${type}&sortBy=${sortBy}`,
+            is_next_page: result.rowCount == limit ? true: false
+        
+        }
     },
     fetchLinkDetailsById: async(linkId) => {
         const result = await pool.query("update links set total_clicks = total_clicks +1 where id = $1 returning *", [linkId]);

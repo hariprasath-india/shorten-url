@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
+import UrlListings from '../UrlListings/urllisting'
 import './search.css'
 
 function Search() {
@@ -33,7 +34,7 @@ function Search() {
 					</form>
 				</div>
 				<div className="row" id="products">
-				
+					<UrlListings></UrlListings>
 			</div>
 		</div>
 	  )
