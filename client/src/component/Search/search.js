@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import './search.css'
 import React,{ useState} from 'react'
 import Button from 'react-bootstrap/Button'
@@ -53,12 +54,14 @@ function Search() {
                         </select>
                     </span>
                     <span className="form-group col-sm-3 col-xs-6">
-                        <Button type="submit" className="btn btn-block btn-primary">Search</Button>
+                        <Button type="submit" className="search-button" variant="info" >
+                            <img src="assets/search.svg" height={20} width={20} />
+                        </Button>
                     </span>
+				    <div className="row" id="products">
+                   	    {responseData && <UrlListings ResponseData={responseData}/>}
+           			</div>
                 </form>
-            </div>
-            <div className="row" id="products">
-                    {responseData && <UrlListings ResponseData={responseData}/>}
             </div>
 		</div>
     )

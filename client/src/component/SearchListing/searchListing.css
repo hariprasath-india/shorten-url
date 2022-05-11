@@ -1,6 +1,10 @@
 .url-list {
-    background: #fff;
-    padding: 6px 12px;
+   padding: 6px 12px;
+   background: white;
+   position: relative;
+   border: 3px solid cornflowerblue;
+   border-radius: 16px;
+   margin-bottom: 20px;
  }
  
  .month {
@@ -21,9 +25,17 @@
  .url-clicks {
   width: 10%;
   text-align: center;
-  border: 1px solid #ddd;
+
  }
  
  .url-copy {
   text-align: left;
+ }
+
+ .num-clicks {
+   background: #52BED6;
+   border-radius: 50px;
+   padding: 6px 4px;
+   font-weight: bold;
+   margin-bottom: 4px;
  }
