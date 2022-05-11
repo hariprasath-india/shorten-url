@@ -1,0 +1,28 @@
+.nano-url-link-input-text {
+    color: #000000;
+    margin-right: 10px;
+    font: icon;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 326;
+    font-size: 15px;
+    line-height: 27px;
+    font-variation-settings: 'slnt' 0;
+    width: 226px;
+    height: 36px;
+    left: 373px;
+    top: 634px;
+}
+
+.card-link {
+    width: 40%;
+    background: #C4C4C4;
+}
+
+.card-icons {
+    width: 20px;
+    height: 20px;
+    left: 640px;
+    bottom: 629px;
+    padding-top: 5px;
+}

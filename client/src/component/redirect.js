@@ -22,7 +22,8 @@ export default function RedirectUrl() {
         .catch((error) => {
             console.log(error)
         });
-  }, [])
+  }, [redirect_url, site_url])
   
+  // eslint-disable-next-line jsx-a11y/heading-has-content
   return <h1></h1>;
 }

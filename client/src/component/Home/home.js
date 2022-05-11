@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import ParticlesBackground from "../ParticleBackground/ParticlesBackground";
 import './home.css';
@@ -14,7 +15,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const Home = () => {
   const [url, setUrl] = useState('')
-  const [shortUrl, setShortUrl] = useState('')
+  const [createLinkResponse, setCreateLinkResponse] = useState('')
   
   const submitHandler = (e) => {
       e.preventDefault()
@@ -24,17 +25,19 @@ const Home = () => {
           .then((response) => {
             console.log(response)
               setUrl('')
-              setShortUrl(response.data.data.short_url_code)
+              setCreateLinkResponse(response.data)
           })
           .catch((error) => {
               console.log(error)
           })
   }
+
     return (
       <div className="home-wrapper">
         <div className="home">
-        <img className="home-image" src={process.env.REACT_APP_SITE_URL + '/assets/Nano.svg'} />
-          <Form onSubmit={submitHandler}>
+        
+        <div className="nano-urls"><img className="home-image" src={process.env.REACT_APP_SITE_URL + '/assets/Nano.svg'} /></div>
+          <Form className="form-url" onSubmit={submitHandler}>
 
             <Form.Control
                 className='mt-3 text-center input-style'
@@ -49,9 +52,8 @@ const Home = () => {
                     Nano It
                 </Button>
             </span>
-
+            {createLinkResponse.statusCode == 200 && <Cards ResponseData={createLinkResponse} />}
           </Form>
-          {shortUrl && <Cards shrinkedUrl={shortUrl} />}
           <Search/>
         </div>
         
