@@ -65,7 +65,7 @@ module.exports = {
             shortUrlHelper.getUrlTitle(url, async (urlTitle) => {
                 const nanoUrls = await pool.query(
                     "INSERT INTO links (original_url, url_title, short_url_code) VALUES($1, $2, $3) RETURNING *",
-                    [url, urlTitle, urlCode]
+                    [url.toLowerCase(), urlTitle, urlCode]
                 );
                 if (nanoUrls.rows[0]){
                     logger.info({

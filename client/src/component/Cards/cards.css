@@ -16,9 +16,11 @@
 }
 
 .card-url {
-    width: 60%;
+    width: 52%;
     text-align: justify;
-    padding-top: 6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .nano-url-copy-bt-input-text{

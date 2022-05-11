@@ -37,6 +37,7 @@ const Home = () => {
         <div className="home">
         
         <div className="nano-urls"><img className="home-image" src={process.env.REACT_APP_SITE_URL + '/assets/Nano.svg'} /></div>
+        <div class="form-url-container">
           <Form className="form-url" onSubmit={submitHandler}>
 
             <Form.Control
@@ -52,8 +53,9 @@ const Home = () => {
                     Nano It
                 </Button>
             </span>
-            {createLinkResponse.statusCode == 200 && <Cards ResponseData={createLinkResponse} />}
+            {createLinkResponse.statusCode === 200 && <Cards ResponseData={createLinkResponse} />}
           </Form>
+          </div>
           <Search/>
         </div>
         
