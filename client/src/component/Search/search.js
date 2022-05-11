@@ -42,7 +42,7 @@ function Search() {
                         </select>
                     </span>
                     <span className="form-group col-sm-3 col-xs-6">
-                            <input type="text" name='query' placeholder= "Enter Keyword or link" value={query} onChange={e => setQuery(e.target.value)} />
+                            <input className="input-text-style" type="text" name='query' placeholder= "Enter Keyword or link" value={query} onChange={e => setQuery(e.target.value)} />
                     </span>
                     <span className="form-group col-sm-3 col-xs-6">
                         <select  name = "sortBy" className="filter-type filter form-control" value={sortBy} onChange={e => setSortBy(e.target.value)} required>
