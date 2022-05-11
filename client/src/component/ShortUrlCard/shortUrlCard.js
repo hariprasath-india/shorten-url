@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
-import './shortUrlCard.css'
+import './shortUrlCard.css';
+
 function ShortUrlCard({ shrinkedUrl }) {
 
  const site_url = process.env.REACT_APP_SITE_URL;
