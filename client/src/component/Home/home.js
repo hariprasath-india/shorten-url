@@ -10,12 +10,13 @@ import Button from 'react-bootstrap/Button'
 import Cards from '../Cards/cards';
 import { createLink } from '../../config/api-calls';
 import Search from '../Search/search';
+import ErrorCards from '../ErrorCard/errorCards';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const Home = () => {
   const [url, setUrl] = useState('')
-  const [createLinkResponse, setCreateLinkResponse] = useState('')
+  const [createLinkResponse, setCreateLinkResponse] = useState('New')
   
   const submitHandler = (e) => {
       e.preventDefault()
@@ -23,12 +24,13 @@ const Home = () => {
           url: url
       })
           .then((response) => {
-            console.log(response)
+            console.log("response",response)
               setUrl('')
               setCreateLinkResponse(response.data)
           })
           .catch((error) => {
-              console.log(error)
+              console.log("error",error)
+              setCreateLinkResponse(error.response.data)
           })
   }
 
@@ -53,12 +55,13 @@ const Home = () => {
                     Nano It
                 </Button>
             </span>
-            {createLinkResponse.statusCode === 200 && <Cards ResponseData={createLinkResponse} />}
+            {console.log("createLinkResponse",createLinkResponse)}
+            {createLinkResponse && createLinkResponse.statusCode === 200 && <Cards ResponseData={createLinkResponse} />}
+            {(!createLinkResponse || createLinkResponse.statusCode === 400) && !createLinkResponse.data && <ErrorCards ErrorMessage={createLinkResponse.error} />}
           </Form>
           </div>
           <Search/>
         </div>
-        
         <ParticlesBackground/>
       </div>
     )

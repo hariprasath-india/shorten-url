@@ -4,6 +4,8 @@ const logger = require('../../config/logger');
 const shortUrlHelper = require('./shorturl.helper');
 const shrinkUrl =  require('../../config/shrinkUrl');
 
+const isValidUrl = require('is-url');
+
 module.exports = {
     fetchAllLinks: async (req, res, next) => {
         try {
@@ -37,14 +39,19 @@ module.exports = {
                 })
             }
             url = shortUrlHelper.checkPrefix(url);
-            if (!shortUrlHelper.checkValidUrl(url)) {
+            console.log(url)
+            if (!isValidUrl(url)) {
+                console.log({
+                    statusCode: 400,
+                    error: "Invalid URL given",
+                    message: "Please enter proper URL"
+                })
                 return res.status(400).json({
                     statusCode: 400,
                     error: "Invalid URL given",
                     message: "Please enter proper URL"
                 })
             }     
-            
             const findUrl = await shortUrlHelper.checkUrlAlreadyExists(url);
             if (findUrl.rows[0]){
                 logger.info({
@@ -82,8 +89,9 @@ module.exports = {
             });
             
         } catch (error) {
+            console.log("error", error.message);
             logger.error(error);
-            res.status(400).json({
+            return res.status(400).json({
                 statusCode: 400,
                 error: error.message,
                 message: "error in creating url"

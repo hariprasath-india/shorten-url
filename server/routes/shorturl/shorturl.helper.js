@@ -1,7 +1,4 @@
-const validUrl = require('valid-url');
-const getUrlTitle = require("get-url-title");
 const pool = require('../../config/database');
-const baseUrl = process.env.BASE_URL
 var getTitleAtUrl = require('get-title-at-url');
 
 const sortByQueryText = (sortBy) => {
@@ -14,24 +11,17 @@ const sortByQueryText = (sortBy) => {
             return  "total_clicks desc"
         default:
             return  "created_at"
-    }
-    
+    }    
 }
 
-
 module.exports = {
-    checkValidUrl: (url) => {
-        return validUrl.isUri(url)
-    },
     checkUrlAlreadyExists: async (url) => {
-
         return await pool.query(
             "select * from links where lower(original_url) = lower($1) ",
             [url]
         );
     },
     checkUrlCodeExists: async (urlCode) => {
-
         const result =  await pool.query(
             "select id from links where short_url_code = $1 ",
             [urlCode]
@@ -49,26 +39,30 @@ module.exports = {
     getUrlTitle: async (url, callback) => {
         getTitleAtUrl(url, function(title){ callback(title); });
     },
-    fetchAllLinks: async(type, input_text, skip, limit, sortBy) => {
+    fetchAllLinks: async(type="url", input_text="", skip, limit, sortBy) => {
         // Pagination if needed
-        // const offset =  (skip || 0 )* (limit || 10)
+        const offset =  (skip || 0 )* (limit || 10)
         
         let query; 
+        let pagination = '';
+        if(limit|| skip){
+            pagination = ` offset ${offset} limit ${limit}`
+        }
         const sortByQuery = sortByQueryText(sortBy)
         console.log("Sort",sortByQueryText(sortBy))
         if (type == 'url'){
             if (sortBy == 'total_clicks') {
-                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`;
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`+pagination;
                 
             }else{
-                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`;
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`+pagination;
             }
             
         }else {
             if (sortBy == 'total_clicks'){
-                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`;
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`+pagination;
             }else{
-                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`;
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`+pagination;
             }
         }
         console.log(query)
