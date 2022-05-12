@@ -8,8 +8,12 @@
 }
 
 .card-link {
-    width: 40%;
     background: #C4C4C4;
+    padding: 6px;
+}
+
+.card-container {
+    width: 48%;
 }
 
 .card-icons {

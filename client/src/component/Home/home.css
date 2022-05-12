@@ -39,14 +39,6 @@
   color: rgb(11, 231, 121);
 }
 
-.wave-emoji {
-  animation-duration: 1.8s;
-  animation-iteration-count: infinite;
-  animation-name: wave;
-  display: inline-block;
-  transform-origin: 70% 70%;
-  animation-fill-mode: forwards;
-}
 
 .home-image {
 height: 138px;
@@ -55,9 +47,14 @@ margin-bottom: 42px;
 }
 
 .form-url {
-padding: 28px 10px 66px 10px;
-margin-right: 30%;
-margin-left: 30%;
-border-radius: 10px;
-background: #ddd;
+  padding: 28px 10px 66px 10px;
+  border-radius: 10px;
+  background: #ddd;
+  width: 50%;
+}
+
+.form-url-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

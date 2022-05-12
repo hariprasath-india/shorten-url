@@ -26,7 +26,7 @@ module.exports = {
     checkUrlAlreadyExists: async (url) => {
 
         return await pool.query(
-            "select * from links where original_url = $1 ",
+            "select * from links where lower(original_url) = lower($1) ",
             [url]
         );
     },
@@ -50,34 +50,34 @@ module.exports = {
         getTitleAtUrl(url, function(title){ callback(title); });
     },
     fetchAllLinks: async(type, input_text, skip, limit, sortBy) => {
-        const offset =  (skip || 0 )* (limit || 10)
-        let result;
+        // Pagination if needed
+        // const offset =  (skip || 0 )* (limit || 10)
+        
         let query; 
         const sortByQuery = sortByQueryText(sortBy)
         console.log("Sort",sortByQueryText(sortBy))
         if (type == 'url'){
             if (sortBy == 'total_clicks') {
-                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`;
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`;
                 
             }else{
-                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+                query = `select * from links where lower(original_url) like lower('%${input_text}%') order by ${sortByQuery}`;
             }
             
         }else {
             if (sortBy == 'total_clicks'){
-                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`;
             }else{
-                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery} limit ${limit} offset ${offset}`
+                query = `select * from links where lower(url_title) like lower('%${input_text}%') order by ${sortByQuery}`;
             }
         }
         console.log(query)
-        result = await pool.query(query);
+        let result = await pool.query(query);
         
         return {
             rows: result.rows,
             next_page: result.rows.length == 0 ? null : `/api/v1/shorturl/fetch-all-links?query=${input_text}&skip=${skip+1}&limit=${limit}&type=${type}&sortBy=${sortBy}`,
             is_next_page: result.rowCount == limit ? true: false
-        
         }
     },
     fetchLinkDetailsById: async(linkId) => {

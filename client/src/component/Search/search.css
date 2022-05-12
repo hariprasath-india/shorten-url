@@ -2,7 +2,26 @@
     margin-top: 40px;
 }
 
-#filter select, #filter input, #filter button {
+#filter {
+    display: flex;
+    width: 51%;
+    background: #ddd;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    justify-content: center;
+    min-height: 140px;
+    }
+    
+    
+#filter select, #filter input {
+    padding: 10px;
+    margin-right: 5px;
+    transition: 1s;
+    border: none;
+    width: 90%;
+}
+
+#filter button {
     padding: 10px;
     margin-right: 5px;
     transition: 1s;
@@ -19,12 +38,11 @@
 }
 
 #filter form {
-    margin-right: 30%;
-    margin-left: 30%;
-    background: #ddd;
+    /* background: #ddd; */
     padding-bottom: 20px;
     padding-top: 20px;
     min-height: 140px;
+    width: 100%;
 }
 
 .search-button{
@@ -40,4 +58,31 @@
 
 #products {
     margin:20px;
+}
+
+.input-text-style {
+    padding: 10px;
+    border: none;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+} 		
+
+.search-section {
+    display: flex;
+    width: 100%;
+}
+
+.select-title, .input-title, .select-sort {
+    width: 67%;
+    padding-left: 5px
+}
+
+.select-btn { 
+    width:15%;
+    padding-right: 10px;
 }
