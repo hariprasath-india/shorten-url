@@ -34,7 +34,7 @@ function Search() {
         <div className="container search-container">
             <div className="row" id="filter">
                 <form action="" onSubmit={e => submitHandler(e)}>
-                    <div class="search-section">
+																	 <div class="search-section">
                     <div className="form-group select-title">
                         <select  name = "type" className="filter-type filter form-control" value={type} onChange={ e => setType(e.target.value)} required>
                                 <option value="">Select Option Url/Title</option>
@@ -59,7 +59,7 @@ function Search() {
                             <img src="assets/search.svg" height={20} width={20} />
                         </Button>
                     </div>
-		            </div>
+																		</div>
 				    <div className="row" id="products">
                    	    {responseData && <UrlListings ResponseData={responseData}/>}
            			</div>
