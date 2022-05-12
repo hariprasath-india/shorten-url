@@ -4,7 +4,6 @@ const app = express();
 const cors = require("cors");
 const logger = require('./config/logger');
 const httpLogger = require('./config/httpLogger');
-const path = require('path');
 
 const port = process.env.PORT || 5000
 require("./config/database");
@@ -18,16 +17,12 @@ app.use(errorHandler);
 app.use(httpLogger);
 
 function logErrors (err, req, res, next) {
-    logger.error(err.stack)
+    logger.error(err.message)
   next(err)
 }
 function errorHandler (err, req, res, next) {
-    logger.error(err)
-    res.status(500).json({
-        statusCode: 500,
-        error: err,
-        message: "Error Occured"
-    })
+    logger.error("Error Occured",err.message)
+    next(err)
 }
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');

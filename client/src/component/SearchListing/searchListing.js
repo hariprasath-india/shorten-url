@@ -10,7 +10,7 @@ function UrlListings({ResponseData}) {
                 <div className="url-list" id ={"url-list-"+data.id}>
                     <div className="url-content">
                         <div className="url-name" id ={"url-name-"+data.id}>
-                            <div className="title" id ={"url-title-"+data.id}>{data.url_title}</div>
+                            <div className="title" id ={"url-title-"+data.id}>{data.url_title || "Title Unavailable: "+data.original_url}</div>
                             <div className="url-copy" id ={"url-copy-"+data.id}>{data.short_url_code && <ShortUrlCard shrinkedUrl={data.short_url_code} />}</div>
                         </div>
                         <div className="url-clicks" id ={"url-clicks-"+data.id}>

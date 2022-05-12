@@ -1,0 +1,25 @@
+.error-new-link-box{
+    margin-top: 30px;
+    background: #ff9494;
+    padding: 16px;
+    position: relative;
+    border: 3px solid cornflowerblue;
+    border-radius: 16px;
+    width: 80%;
+    margin-left: 38px;
+    display: flex;
+}
+
+.error-nano-url-text-input-text{
+    color: black;
+    font-weight: bold;
+}
+
+.error-card-url {
+    width: 52%;
+    text-align: justify;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
